@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Voyage;
 use Illuminate\Http\Request;
+
 
 class VoyageController extends Controller
 {
     function index() {
-        return view('site.voyages');
+        $voyages = Voyage::all();
+        return view('site.voyages')->with('voyages', $voyages);
     }
 
     function show($id) {
-        return view('site.voyage', ['id' => $id]);
+        $voyage = Voyage::findOrFail($id);
+        return view('site.voyage')->with('voyage', $voyage);
     }
 }

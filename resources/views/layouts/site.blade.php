@@ -23,32 +23,32 @@
 	<link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700" rel="stylesheet">
 	
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="{{ asset('css/animate.css') }}">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
 
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
 
 	<!-- Flexslider  -->
-	<link rel="stylesheet" href="css/flexslider.css">
+	<link rel="stylesheet" href="{{ asset('css/flexslider.css') }}">
 
 	<!-- Owl Carousel -->
-	<link rel="stylesheet" href="css/owl.carousel.min.css">
-	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/owl.theme.default.min.css') }}">
 	
 	<!-- Date Picker -->
-	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker.css') }}">
 	<!-- Flaticons  -->
-	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="{{ asset('fonts/flaticon/font/flaticon.css') }}">
 
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
 	<!-- Modernizr JS -->
-	<script src="js/modernizr-2.6.2.min.js"></script>
+	<script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -60,6 +60,11 @@
 	<div class="colorlib-loader"></div>
 
 	<div id="page">
+	@if (session('status'))
+		<div class="alert alert-success" role="alert">
+			{{ session('status') }}
+		</div>
+	@endif
 		<nav class="colorlib-nav" role="navigation">
 			<div class="top-menu">
 				<div class="container-fluid">
@@ -67,8 +72,10 @@
 						<div class="col-xs-2">
 							<div id="colorlib-logo">
 								<a href="/">
-									Tartifly
-									<img src="images/logo.png" height="30px" alt="logo"/>
+									<div class="logo-wrapper">
+										Tartifly
+										<img src="{{ asset('images/logo.png') }}" height="30px" alt="logo"/>
+									</div>
 								</a>
 							</div>
 						</div>
@@ -76,17 +83,46 @@
 							<ul>
 								<li class="active"><a href="/">Home</a></li>
 								<li><a href="/about">About</a></li>
-								<li class="has-dropdown">
-									<a href="/voyages">Voyages</a>
-									<ul class="dropdown">
-										<li><a href="/voyages/afrique">Afrique</a></li>
-										<li><a href="/voyages/asie">Asie</a></li>
-										<li><a href="/voyages/amerique">Amérique</a></li>
-										<li><a href="/voyages/europe">Europe</a></li>
-										<li><a href="/voyages/oceanie">Océanie</a></li>
-									</ul>
+								<li><a href="/voyages">Voyages</a></li>
+								<li><a href="/messages">Contact</a></li>
+								<!-- Authentication Links -->
+								@guest
+                            	<li class="nav-item">
+                                	<a class="nav-link" href="{{ route('login') }}">{{ __("M'identifier") }}</a>
+                            	</li>
+								@if (Route::has('register'))
+								<li class="nav-item">
+									<a class="nav-link" href="{{ route('register') }}">{{ __("M'enregistrer") }}</a>
 								</li>
-								<li><a href="/messages">Messages</a></li>
+								@endif
+								@else
+								<li class="nav-item has-dropdown">
+									<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+										{{ Auth::user()->name }} <span class="caret"></span>
+									</a>
+
+									<!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"> -->
+										<ul class="dropdown">
+											@if (Auth::user()->name === 'Admin')
+											<li><a href="/admin">Administration</a></li>
+											@else 
+											<li><a href="/profile">Profile</a></li>
+											@endif
+											<li>
+												<a 
+													class="dropdown-item" href="{{ route('logout') }}"
+													onclick="event.preventDefault();
+													document.getElementById('logout-form').submit();">
+													{{ __('Me déconnecter') }}
+												</a>
+												<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+													@csrf
+												</form>
+											</li>
+										</ul>
+									<!-- </div> -->
+                            	</li>
+                        		@endguest
 							</ul>
 						</div>
 					</div>
@@ -96,7 +132,7 @@
         
 		@yield('content')
 		
-		<div id="colorlib-subscribe" style="background-image: url(images/img_bg_2.jpg);" data-stellar-background-ratio="0.5">
+		<div id="colorlib-subscribe" style="background-image: url('{{ asset('images/img_bg_2.jpg') }}');" data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row">
@@ -196,26 +232,26 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	</div>
 	
 	<!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
 	<!-- jQuery Easing -->
-	<script src="js/jquery.easing.1.3.js"></script>
+	<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
 	<!-- Bootstrap -->
-	<script src="js/bootstrap.min.js"></script>
+	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<!-- Waypoints -->
-	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="{{ asset('js/jquery.waypoints.min.js') }}"></script>
 	<!-- Flexslider -->
-	<script src="js/jquery.flexslider-min.js"></script>
+	<script src="{{ asset('js/jquery.flexslider-min.js') }}"></script>
 	<!-- Owl carousel -->
-	<script src="js/owl.carousel.min.js"></script>
+	<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
 	<!-- Magnific Popup -->
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
+	<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+	<script src="{{ asset('js/magnific-popup-options.js') }}"></script>
 	<!-- Date Picker -->
-	<script src="js/bootstrap-datepicker.js"></script>
+	<script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 	<!-- Stellar Parallax -->
-	<script src="js/jquery.stellar.min.js"></script>
+	<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
 	<!-- Main -->
-	<script src="js/main.js"></script>
+	<script src="{{ asset('js/main.js') }}"></script>
 
 	</body>
 </html>

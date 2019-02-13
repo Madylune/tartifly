@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->only('admin');
+    }
+
     function home() {
         return view('site.welcome');
     }
@@ -16,5 +21,9 @@ class PageController extends Controller
 
     function messages() {
         return view('site.messages');
+    }
+
+    function admin() {
+        return view('admin.index');
     }
 }

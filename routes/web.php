@@ -13,18 +13,21 @@
 
 Route::get('/', 'PageController@home');
 
-Route::get('/about', 'PageController@about');
+Route::get('about', 'PageController@about');
 
-Route::get('/about', 'PageController@messages');
+Route::get('messages', 'PageController@messages');
 
-Route::get('/voyages', 'VoyageController@index');
+Route::get('voyages', 'VoyageController@index');
 
-Route::get('/voyages/{id}', 'VoyageController@show');
+Route::get('voyages/{id}', 'VoyageController@show');
 
-Route::get('/admin/voyages/{id}', function ($id) {
-    return 'Admin voyage '.$id;
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'PageController@admin');
+    Route::resource('voyages', 'AdminVoyageController');
+    Route::resource('users', 'AdminUserController');
 });
+Auth::routes();
 
-Route::get('/admin/messages/{id}', function ($id) {
-    return 'Admi, message '.$id;
-});
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profile', 'HomeController@profile');
