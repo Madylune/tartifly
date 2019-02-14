@@ -106,6 +106,6 @@ class AdminVoyageController extends Controller
     public function destroy(Voyage $voyage)
     {
         $voyage->delete();
-        return redirect()->route('voyages.index')->with('deleted', 'Le voyage " '. $voyage->label .' " supprimé !');
+        return redirect()->route('voyages.index')->with('deleted', 'Le voyage " '. $voyage->label .' " a bien été supprimé !');
     }
 }

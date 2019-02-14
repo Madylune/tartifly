@@ -27,11 +27,11 @@
             </ul>
             <div class="clearfix"></div>
             </div>    
-            <a href="" class="btn btn-app">
+            <a href="{{ route('users.create') }}" class="btn btn-app">
                 <i class="fa fa-edit"></i> Nouveau
             </a>
             <div class="x_content">
-            <!-- @if (session('saved'))
+            @if (session('saved'))
                 <div class="alert alert-success">
                 {{ session('saved') }}
                 </div>
@@ -39,7 +39,7 @@
                 <div class="alert alert-danger">
                 {{ session('deleted') }}
                 </div>
-            @endif -->
+            @endif
             <div class="table-responsive">
                 <table class="table table-striped jambo_table bulk_action" >
                 <thead>
@@ -70,9 +70,9 @@
                     <td class=" ">{{ $user->created_at }}</td>
                     <td class=" ">{{ $user->updated_at }}</td>
                     <td class="last" style="display: flex;flex-direction: row;justify-content: space-between;">
-                        <a href="" title="Voir"><i class="fa fa-eye"></i></a>
-                        <a href="" title="Modifier"><i class="fa fa-pencil"></i></a>
-                        <a href="" title="Supprimer"><i style="color:#CF270A" class="fa fa-times"></i></a>
+                        <a href="{{ route('users.show', $user->id) }}" title="Voir"><i class="fa fa-eye"></i></a>
+                        <a href="{{ route('users.edit', $user->id) }}" title="Modifier"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ route('users.destroy', $user->id) }}" title="Supprimer"><i style="color:#CF270A" class="fa fa-times"></i></a>
                     </td>
                     </tr>
                     @endforeach

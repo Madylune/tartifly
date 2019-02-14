@@ -30,7 +30,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users_create');
     }
 
     /**
@@ -41,7 +41,14 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect()->route('users.index')->with('saved', 'L\'utilisateur " '. $user->name .' " a bien été ajouté !');
     }
 
     /**
@@ -52,7 +59,7 @@ class AdminUserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users_show', ['user'=>$user]);
     }
 
     /**
@@ -63,7 +70,7 @@ class AdminUserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users_edit', ['user'=>$user]);
     }
 
     /**
@@ -75,7 +82,13 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -86,6 +99,7 @@ class AdminUserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index')->with('deleted', 'L\'utilisateur " '. $user->name .' " a bien été supprimé !');
     }
 }

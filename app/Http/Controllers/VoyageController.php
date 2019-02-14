@@ -13,6 +13,13 @@ class VoyageController extends Controller
         return view('site.voyages')->with('voyages', $voyages);
     }
 
+    // function index(Request $request) {
+    //     $voyages = Voyage::where(function($query) {
+    //         $query->where('period', "=", $request);
+    //     })->get();
+    //     return view('site.voyages')->with('voyages', $voyages);
+    // }
+
     function show($id) {
         $voyage = Voyage::findOrFail($id);
         return view('site.voyage')->with('voyage', $voyage);

@@ -6,7 +6,7 @@
     <div class="">
     <div class="page-title">
         <div class="title_left">
-        <h3>Editer un voyage</h3>
+        <h3>Ajout d'un nouvel utilisateur</h3>
         </div>
 
         <div class="title_right">
@@ -45,22 +45,46 @@
             </div>
             <div class="x_content">
             <br />
-            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="{{ route('voyages.update', $voyage->id) }}">
+            <!-- @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif -->
+            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="POST" action="{{ route('users.store') }}">
                 @csrf
-                @method('PUT')
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="label">Libellé<span class="required">*</span>
-                    </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Nom<span class="required">*</span></label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Email<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="label" name="label" required="required" class="form-control col-md-7 col-xs-12" value="{{ $voyage->label }}" />
+                        <input type="email" id="email" name="email" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description<span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="password">Mot de passe</label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input type="text" id="description" name="description" class="form-control col-md-7 col-xs-12" value="{{ $voyage->description }}" />
+                        <input type="password" id="password" name="password" class="form-control col-md-7 col-xs-12">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Période</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <select class="select2_group form-control" name="role">
+                            <option value="Admin">Administrateur</option>
+                            <option value="Modo">Modérateur</option>
+                            <option value="User">Utilisateur</option>
+                        </select>
                     </div>
                 </div>
                 
